@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Analysis{% endblock %}
+{% block content %}
+
+<h2 class="page-title center-title">📊 Performance Analysis</h2>
+
+<div class="glass-card">
+    <canvas id="scoreChart" height="120"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const labels = JSON.parse('{{ labels | tojson | safe }}');
+const scores = JSON.parse('{{ scores | tojson | safe }}');
+
+const ctx = document.getElementById('scoreChart').getContext('2d');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Predicted Score',
+            data: scores,
+            borderColor: '#4f9cff',
+            backgroundColor: 'rgba(79,156,255,0.2)',
+            tension: 0.4,
+            fill: true,
+            pointRadius: 5,
+            pointBackgroundColor: '#4f9cff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: { color: '#ffffff' }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: '#ffffff' },
+                grid: { color: '#333' }
+            },
+            y: {
+                ticks: { color: '#ffffff' },
+                grid: { color: '#333' }
+            }
+        }
+    }
+});
+</script>
+
+{% endblock %}

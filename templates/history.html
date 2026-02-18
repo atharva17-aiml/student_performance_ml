@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}History{% endblock %}
+
+{% block content %}
+
+<h2 class="page-title center-title">🕘 Prediction History</h2>
+
+{% if rows|length == 0 %}
+<div class="glass-card" style="text-align:center; color:#cbd5e1;">
+    No prediction history yet. Make your first prediction!
+</div>
+{% else %}
+
+<!-- GLASS CARD WRAPPER -->
+<div class="glass-card history-card">
+
+    <div class="table-wrapper">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Study</th>
+                    <th>Failures</th>
+                    <th>Absences</th>
+                    <th>Health</th>
+                    <th>G1</th>
+                    <th>G2</th>
+                    <th>Predicted</th>
+                    <th>Date</th>
+                    <th>Institute</th>
+                    <th>Roll No</th>
+                    <th>DOB</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for r in rows %}
+                <tr>
+                    <td>{{ r.studytime }}</td>
+                    <td>{{ r.failures }}</td>
+                    <td>{{ r.absences }}</td>
+                    <td>{{ r.health }}</td>
+                    <td>{{ r.G1 }}</td>
+                    <td>{{ r.G2 }}</td>
+                    <td><b>{{ r.predicted_score }}</b></td>
+                    <td>{{ r.created_at }}</td>
+                    <td>{{ r.institute }}</td>
+                    <td>{{ r.roll_no }}</td>
+                    <td>{{ r.birth_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endif %}
+
+{% endblock %}

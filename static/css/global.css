@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* ===================== */
+/* DASHBOARD LAYOUT */
+/* ===================== */
+
+.dashboard-body {
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at top left, #1e293b, #020617);
+}
+
+.dashboard-wrapper {
+    display: flex;
+    height: 100%;
+}
+
+/* ===================== */
+/* SIDEBAR */
+/* ===================== */
+
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #020617, #0f172a);
+    color: white;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.profile-mini {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.sidebar-menu {
+    flex: 1;
+}
+
+.nav-btn {
+    display: block;
+    padding: 12px 15px;
+    margin: 6px 0;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #e5e7eb;
+}
+
+.nav-btn:hover {
+    background: #2563eb;
+    color: white;
+}
+
+.logout-btn {
+    background: #dc2626;
+    color: white;
+}
+
+/* ===================== */
+/* MAIN AREA */
+/* ===================== */
+
+.dashboard-main {
+    flex: 1;
+    padding: 35px;
+    overflow-y: auto;
+}
+
+/* ===================== */
+/* GLASS CARDS */
+/* ===================== */
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border-radius: 18px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    margin-bottom: 25px;
+}
+
+.card-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* ===================== */
+/* PROFILE */
+/* ===================== */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* ===================== */
+/* TITLE */
+/* ===================== */
+
+.page-title {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 25px;
+}
+
+/* ===================== */
+/* 🔥 PREDICT SECTION FIXED */
+/* ===================== */
+
+.predict-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+}
+
+/* ✅ FIXED: full width form */
+.predict-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;   /* 🔥 important */
+    width: 100%;
+}
+
+/* GRID */
+.predict-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+/* INPUTS */
+.predict-grid input {
+    height: 54px;
+    padding: 12px 16px;
+    font-size: 15px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.predict-grid input::placeholder {
+    color: #9ca3af;
+}
+
+/* BUTTON */
+.predict-btn-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 12px auto 0 auto;
+}
+
+.predict-btn {
+    width: 100%;
+    height: 56px;
+    font-size: 17px;
+    border-radius: 14px;
+    border: none;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    cursor: pointer;
+}
+
+.predict-btn:hover {
+    opacity: 0.9;
+}
+
+/* ===================== */
+/* ✅ FLASH FIX */
+/* ===================== */
+
+.flash-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 15px auto 0 auto;
+}
+
+.flash-message {
+    background: #22c55e;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===================== */
+/* TABLE FIX */
+/* ===================== */
+
+table,
+thead,
+tbody,
+tr,
+td,
+th {
+    background: transparent !important;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media (max-width: 900px) {
+    .predict-grid {
+        grid-template-columns: 1fr;
+    }
+}

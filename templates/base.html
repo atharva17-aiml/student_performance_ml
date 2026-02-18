@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+
+    <!-- GLOBAL CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+<div class="dashboard-wrapper">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+        <div class="sidebar-title">🎓 Student ML</div>
+
+        <div class="profile-mini">
+            <div class="avatar">
+                {{ session.get('username')[0]|upper if session.get('username') else '?' }}
+            </div>
+            <div class="username">
+                {{ session.get('username') }}
+                {% if session.get("role") == "admin" %}
+                    <span style="color:#facc15;">(ADMIN)</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="/" class="nav-btn">🏠 Dashboard</a>
+            <a href="/profile" class="nav-btn">👤 Profile</a>
+            <a href="/analysis" class="nav-btn">📊 Analysis</a>
+            <a href="/history" class="nav-btn">🕘 History</a>
+
+            {% if session.get("role") == "admin" %}
+            <a href="/admin" class="nav-btn admin-btn">🛠 Admin</a>
+            {% endif %}
+        </nav>
+
+        <a href="/logout" class="nav-btn logout-btn">🚪 Logout</a>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="dashboard-main">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Dashboard Title -->
+<h2 class="page-title center-title">🎓 Student Performance Dashboard</h2>
+
+<!-- ================= STATS ================= -->
+<div class="card-grid">
+
+    {% if session.get("role") == "admin" %}
+    <div class="glass-card">
+        👥 Total Users<br>
+        <b>{{ total_users }}</b>
+    </div>
+    {% endif %}
+
+    <div class="glass-card">
+        📊 Your Predictions<br>
+        <b>{{ total_predictions }}</b>
+    </div>
+
+    <div class="glass-card">
+        ⭐ Your Average Score<br>
+        <b>
+            {% if avg_score is not none %}
+                {{ avg_score }}
+            {% else %}
+                --
+            {% endif %}
+        </b>
+    </div>
+
+    <div class="glass-card">
+        📈 Latest Score<br>
+        <b>
+            {% if latest_score is not none %}
+                {{ latest_score }}
+            {% else %}
+                --
+            {% endif %}
+        </b>
+    </div>
+
+</div>
+
+<!-- ================= PROFILE ================= -->
+<div class="glass-card profile-card">
+    <h3>👤 Student Profile</h3>
+
+    <div class="profile-grid">
+        <div><b>Username:</b> {{ profile_username }}</div>
+        <div><b>Institute:</b> {{ profile_institute }}</div>
+        <div><b>Roll No:</b> {{ profile_roll_no }}</div>
+        <div><b>DOB:</b> {{ profile_birth_date }}</div>
+        <div><b>Total Predictions:</b> {{ total_predictions }}</div>
+    </div>
+</div>
+
+<!-- ================= PREDICTION ================= -->
+<div class="glass-card predict-card">
+
+    <h3>📈 Predict Student Performance</h3>
+
+    <!-- FORM -->
+    <form method="POST" action="/predict" class="predict-form">
+
+        <div class="predict-grid">
+            <input type="number" name="studytime" min="1" max="5" placeholder="Study Time (1–5)" required>
+            <input type="number" name="failures" min="0" max="3" placeholder="Past Failures (0–3)" required>
+            <input type="number" name="absences" min="0" max="93" placeholder="Absences" required>
+
+            <input type="number" name="health" min="1" max="5" placeholder="Health (1–5)" required>
+            <input type="number" name="G1" min="0" max="20" placeholder="First Period Grade (0–20)" required>
+            <input type="number" name="G2" min="0" max="20" placeholder="Second Period Grade (0–20)" required>
+        </div>
+
+        <!-- BUTTON -->
+        <div class="predict-btn-wrapper">
+            <button type="submit" class="predict-btn">
+                🔍 Predict Performance
+            </button>
+        </div>
+
+    </form>
+
+    <!-- ✅ LOCAL MESSAGE (FINAL FIX) -->
+    {% if success_msg %}
+        <div class="flash-container">
+            <div class="flash-message">
+                {{ success_msg }}
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+
+<!-- ✅ AUTO HIDE -->
+<script>
+setTimeout(() => {
+    const flash = document.querySelector('.flash-container');
+    if (flash) {
+        flash.style.transition = "opacity 0.5s";
+        flash.style.opacity = "0";
+    }
+}, 4000);
+</script>
+
+{% endblock %}

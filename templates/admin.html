@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Student Performance | Admin{% endblock %}
+{% block content %}
+
+<h2 class="page-title center-title">🎓 Student Performance</h2>
+
+<div style="margin-bottom:20px; text-align:right;">
+    <a href="/admin/export-csv" class="predict-btn">
+        ⬇ Download Predictions CSV
+    </a>
+</div>
+
+<!-- ================= USERS ================= -->
+<div class="glass-card">
+
+<h3>👥 Registered Users</h3>
+
+<table class="history-table">
+<tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Institute</th>
+    <th>Roll</th>
+    <th>DOB</th>
+    <th>Role</th>
+</tr>
+
+{% for u in users %}
+<tr>
+    <td>{{ u.id }}</td>
+    <td>{{ u.username }}</td>
+    <td>{{ u.institute }}</td>
+    <td>{{ u.roll_no }}</td>
+    <td>{{ u.birth_date }}</td>
+    <td>{{ u.role }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+<!-- ================= PREDICTIONS ================= -->
+<div class="glass-card">
+
+<h3>📊 All Predictions</h3>
+
+<table class="history-table">
+<tr>
+    <th>User</th>
+    <th>Score</th>
+    <th>Date</th>
+    <th>Institute</th>
+    <th>Roll</th>
+    <th>DOB</th>
+</tr>
+
+{% for p in predictions %}
+<tr>
+    <td>{{ p.username }}</td>
+    <td>{{ p.predicted_score }}</td>
+    <td>{{ p.created_at }}</td>
+    <td>{{ p.institute }}</td>
+    <td>{{ p.roll_no }}</td>
+    <td>{{ p.birth_date }}</td>
+</tr>
+{% endfor %}
+</table>
+
+</div>
+
+<!-- ================= CHART ================= -->
+<div class="glass-card">
+
+<h3>📈 Predictions Per Day</h3>
+
+<canvas id="chart" height="100"></canvas>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const chartData = JSON.parse('{{ chart_data | tojson | safe }}');
+
+    const labels = chartData.map(item => item.day);
+    const values = chartData.map(item => item.total);
+
+    const ctx = document.getElementById("chart").getContext("2d");
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Predictions per Day',
+                data: values,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59,130,246,0.3)',
+                fill: true,
+                tension: 0.4,
+                pointRadius: 4
+            }]
+        }
+    });
+</script>
+
+
+{% endblock %}
