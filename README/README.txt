@@ -1,61 +1,160 @@
-﻿admin
-admin123
-* Study Time (1–4)
-How many hours the student studies per week (category):
-Value        Meaning
-1        Very low study time (< 2 hours/week)
-2        Low study time (2–5 hours/week)
-3        Medium study time (5–10 hours/week)
-4        High study time (> 10 hours/week)
+# Student Performance ML System
 
-* Past Failures (0–3)
-Number of past class failures.
-Value        Meaning
-0        No failures
-1        Failed once
-2        Failed twice
-3        Failed three or more times
-Higher failures usually → lower future performance.
+## Features
 
-* Absences
-Total number of school days the student missed.
-Example:
-0 → perfect attendance
-10 → missed 10 days
-30 → missed 30 days
-More absences → worse performance generally.
+* User authentication (Register / Login / Logout)
+* Profile management
+* Student performance prediction using ML model
+* Input validation for prediction data
+* Prediction history tracking
+* Dashboard with user statistics
+* Admin panel (view users & predictions)
+* CSV export for predictions
+* Data visualization (analysis page)
+* MySQL database integration
 
-* Health (1–5)
-Student's self-reported health condition:
-Value        Meaning
-1        Very poor
-2        Poor
-3        Average
-4        Good
-5        Excellent
-Better health often supports better study consistency.
+---
 
-* First Period Grade (G1) (0–20)
-Marks scored in the first internal exam / term.
-Range:
-            0 (fail) → 20 (excellent)
+## Setup
 
-* Second Period Grade (G2) (0–20)
-Marks scored in the second internal exam / term.
-Also:
-       0 → 20 G1 and G2 are strong predictors of final grade (G3).
+Install dependencies:
 
-Why these features matter for ML
-Your model uses them because:
+```
+pip install -r requirements.txt
+```
 
+Create `.env` file:
 
-Feature                Effect
-Study Time	Improves understanding
-Failures	Indicates learning difficulty
-Absences	Reduces classroom exposure
-Health   	Affects focus & consistency
-G1, G2	        Shows past academic ability
-	
+```
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=yourpassword
+DB_NAME=yourdatabase
+SECRET_KEY=yoursecretkey
+```
 
-Report-ready definition (you can copy)
-The dataset includes academic and behavioral attributes such as study time, past failures, absences, health condition, and previous term grades (G1 and G2). These features were selected due to their strong influence on students’ final academic performance.
+Initialize database:
+
+```
+python database.py
+```
+
+Train ML model:
+
+```
+python train_model.py
+```
+
+Run application:
+
+```
+python app.py
+```
+
+---
+
+## Usage
+
+1. Register a new user
+2. Login to the system
+3. Enter student details:
+
+   * Study Time
+   * Failures
+   * Absences
+   * Health
+   * G1, G2 marks
+4. Click **Predict**
+5. View results on dashboard
+
+---
+
+## Prediction Model
+
+* Algorithms used:
+
+  * Linear Regression
+  * Random Forest (best model selected automatically)
+
+* Features:
+
+  * studytime
+  * failures
+  * absences
+  * health
+  * G1, G2
+
+* Output:
+
+  * Predicted final score (G3)
+
+---
+
+## Input Validation
+
+* Study Time: 1–5
+* Failures: 0–3
+* Absences: 0–30
+* Health: 1–5
+* G1, G2: 0–20
+
+---
+
+## Assumptions
+
+* Input values are numeric
+* Dataset is available in `/dataset/student_data.csv`
+* MySQL server is running
+* Environment variables are configured
+
+---
+
+## Notes
+
+* Predictions are stored in database
+* Admin can view all users and predictions
+* CSV export available for admin
+* Sessions expire after a fixed duration
+
+---
+
+## Tech Stack
+
+* Python
+* Flask
+* MySQL
+* Scikit-learn
+* Pandas
+* NumPy
+* Matplotlib / Seaborn
+* Gunicorn
+
+---
+
+## Verification
+
+* Dashboard statistics
+* Prediction history page
+* Admin panel data
+* CSV export
+
+---
+
+## Deployment
+
+* Configured for deployment using:
+
+  * Gunicorn
+  * Render (via `render.yaml`)
+
+---
+
+## Future Improvements
+
+* Add REST API endpoints
+* Improve UI (React / modern frontend)
+* Add advanced ML models
+* Real-time analytics dashboard
+* Role-based access enhancements
+
+---
